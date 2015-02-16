@@ -41,7 +41,8 @@ string messages[3] = {
 	"Territories are what make up the areas on the map. You will now be creating them\n\n"
 	"To create a territory:\n\n1. Select the owner of the territory (1 - neutral  2 - you  3 - AI)\n"
 	"2. Select the tiles that make up your territory, you will notice they become \nwhite.\n"
-	"3. Press space to move on to the next territory.\n\n\n Tips:\n\nYou cannot go back to a territory once you have moved on.\n"
+	"3. Press space to move on to the next territory.\n\n\n Tips:\n\nYou can go back to the previous territory by pressing escape, "
+	"but you lose any \nprogress on the new territory\n"
 	"You can deselect a tile by clicking it again (assuming you haven't moved on)\nTiles in other territories will become black when you move on.\n"
 	"You can change the territores owner at any point during tile selection (but not after you move on).\n\n"
 	"Once all tiles have been put into territories press space. The creator will \nclose and your map can be found in maps\\map.mp\n\n"
@@ -165,6 +166,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			moveOn();
 		} else {
  			tersToFile();
+		}
+	}
+
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+		for (int i = 0; i < ters[currentTer].tilesInTerr.size(); i++) {
+			int mTile = ters[currentTer].tilesInTerr[i];
+			availableTiles.push_back(mTile);
+			map.changeTileCol(mTile, 0);
+		}
+		ters.pop_back();
+		currentTer--;
+		for (int i = 0; i < ters[currentTer].tilesInTerr.size(); i++) {
+			int mTile = ters[currentTer].tilesInTerr[i];
+			map.changeTileCol(mTile, 3);
 		}
 	}
 
