@@ -170,6 +170,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+		if (ters.size() <= 1) return;
 		for (int i = 0; i < ters[currentTer].tilesInTerr.size(); i++) {
 			int mTile = ters[currentTer].tilesInTerr[i];
 			availableTiles.push_back(mTile);
